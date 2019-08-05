@@ -5,6 +5,7 @@
   "author": "Diego Souza <diego@eadskill.com.br>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "yup": "^0.27.0"
   }
 }
