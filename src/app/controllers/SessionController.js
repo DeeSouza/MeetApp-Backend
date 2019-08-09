@@ -13,9 +13,10 @@ class SessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res
-        .status(400)
-        .json({ status: false, error: 'Valores de campos inválidos.' });
+      return res.status(400).json({
+        status: false,
+        error: 'Valores de campos inválidos ou não preenchidos.',
+      });
     }
 
     const { email, password } = req.body;

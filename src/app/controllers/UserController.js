@@ -16,7 +16,7 @@ class UserController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
         status: false,
-        error: 'Valores de campos inválidos.',
+        error: 'Valores de campos inválidos ou não preenchidos.',
       });
     }
 
@@ -25,7 +25,7 @@ class UserController {
     if (userExists) {
       return res.status(401).json({
         status: false,
-        error: 'Esse usuário já existe na plataforma',
+        error: 'Esse usuário já existe na plataforma.',
       });
     }
 
@@ -52,7 +52,7 @@ class UserController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
         status: false,
-        error: 'Valores de campos inválidos.',
+        error: 'Valores de campos inválidos ou não preenchidos.',
       });
     }
 
