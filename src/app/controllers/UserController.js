@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
+import EnrolMeetup from '../models/EnrolMeetup';
 
 class UserController {
   async store(req, res) {
@@ -85,8 +86,8 @@ class UserController {
     });
   }
 
-  async meetups(req, res) {
-    // Meetups from user logged
+  async meetups_owner(req, res) {
+    // Meetups from user logged is owner
     const meetups = await Meetup.findAll({
       user_id: req.userId,
       attributes: ['title', 'description', 'date', 'banner', 'localization'],
@@ -96,6 +97,36 @@ class UserController {
       return res.json({
         status: false,
         message: 'Você ainda não cadastrou nenhum MeetUp!',
+      });
+    }
+
+    return res.json(meetups);
+  }
+
+  async meetups_enrolled(req, res) {
+    // Meetups from user logged is owner
+    const meetups = await EnrolMeetup.findAll({
+      user_id: req.userId,
+      attributes: ['id', 'enrolled_at'],
+      include: [
+        {
+          model: Meetup,
+          as: 'meetups',
+          attributes: [
+            'title',
+            'description',
+            'date',
+            'banner',
+            'localization',
+          ],
+        },
+      ],
+    });
+
+    if (!meetups.length) {
+      return res.json({
+        status: false,
+        message: 'Você ainda não se inscreveu nenhum MeetUp!',
       });
     }
 

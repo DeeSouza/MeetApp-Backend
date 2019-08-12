@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
-import { parseISO, isBefore } from 'date-fns';
+import { parseISO, isBefore, format, startOfDay, endOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
+import User from '../models/User';
 
 class MeetupController {
   async index(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, date } = req.query;
+    const dateFormat = date ? parseISO(date) : null;
     const limitNumber = 10;
 
     // Meetups from user logged
@@ -12,12 +15,26 @@ class MeetupController {
       attributes: ['title', 'description', 'date', 'banner', 'localization'],
       limit: limitNumber,
       offset: (page - 1) * 10,
+      include: [
+        {
+          model: User,
+          as: 'users',
+          attributes: ['name', 'email'],
+        },
+      ],
+      where: dateFormat
+        ? {
+            date: {
+              [Op.between]: [startOfDay(dateFormat), endOfDay(dateFormat)],
+            },
+          }
+        : {},
     });
 
     if (!meetups.length) {
       return res.json({
         status: false,
-        message: 'Você ainda não cadastrou nenhum MeetUp!',
+        message: 'Nenhum Meetup encontrado!',
       });
     }
 
