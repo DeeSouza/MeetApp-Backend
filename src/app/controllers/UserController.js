@@ -1,9 +1,16 @@
 import * as Yup from 'yup';
+import { startOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
 import EnrolMeetup from '../models/EnrolMeetup';
 
 class UserController {
+  /**
+   * @description Create new User
+   * @param {*} req
+   * @param {*} res
+   */
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -36,6 +43,12 @@ class UserController {
     return res.json({ id, name, email });
   }
 
+  /**
+   * @description Update user than is logged
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
@@ -86,6 +99,12 @@ class UserController {
     });
   }
 
+  /**
+   * @description List meetups than user logged is the owner
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async meetups_owner(req, res) {
     // Meetups from user logged is owner
     const meetups = await Meetup.findAll({
@@ -103,22 +122,28 @@ class UserController {
     return res.json(meetups);
   }
 
+  /**
+   * @description List meetups than user logges is enrolled
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async meetups_enrolled(req, res) {
-    // Meetups from user logged is owner
-    const meetups = await EnrolMeetup.findAll({
-      user_id: req.userId,
-      attributes: ['id', 'enrolled_at'],
+    // Meetups from user logged is owner than not passed
+    const meetups = await Meetup.findAll({
+      order: [['date', 'desc']],
+      attributes: ['title', 'description', 'date', 'banner', 'localization'],
+      where: {
+        date: {
+          [Op.gte]: startOfDay(new Date()),
+        },
+      },
       include: [
         {
-          model: Meetup,
-          as: 'meetups',
-          attributes: [
-            'title',
-            'description',
-            'date',
-            'banner',
-            'localization',
-          ],
+          model: EnrolMeetup,
+          as: 'enrol_meetups',
+          where: { user_id: req.userId },
+          attributes: ['id', 'enrolled_at'],
         },
       ],
     });

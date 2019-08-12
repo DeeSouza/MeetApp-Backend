@@ -1,10 +1,16 @@
 import * as Yup from 'yup';
-import { parseISO, isBefore, format, startOfDay, endOfDay } from 'date-fns';
+import { parseISO, isBefore, startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
 
 class MeetupController {
+  /**
+   * @description List all meetups
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async index(req, res) {
     const { page = 1, date } = req.query;
     const dateFormat = date ? parseISO(date) : null;
@@ -41,6 +47,12 @@ class MeetupController {
     return res.json(meetups);
   }
 
+  /**
+   * @description Create new meetup
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -81,6 +93,12 @@ class MeetupController {
     });
   }
 
+  /**
+   * @description Update meetup
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async update(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -138,6 +156,12 @@ class MeetupController {
     });
   }
 
+  /**
+   * @description Destroy or delete meetup from platform
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async destroy(req, res) {
     const meetup = await Meetup.findByPk(req.params.id);
 

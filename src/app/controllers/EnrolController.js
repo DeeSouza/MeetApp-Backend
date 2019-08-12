@@ -3,6 +3,12 @@ import Meetup from '../models/Meetup';
 import EnrolMeetup from '../models/EnrolMeetup';
 
 class EnrolController {
+  /**
+   * @description Enrol user than is logged in meetup
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
   async store(req, res) {
     const { meetup_id } = req.body;
 
