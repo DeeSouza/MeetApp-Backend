@@ -128,6 +128,23 @@ class MeetupController {
       });
     }
 
+    // User logged not is owner from meetup
+    if (meetup.user_id !== req.userId) {
+      return res.status(401).json({
+        status: false,
+        error:
+          'Nâo é possível editar um MeetUp no qual você não é um organizador.',
+      });
+    }
+
+    // Meetup is passed
+    if (isBefore(meetup.date, new Date())) {
+      return res.status(401).json({
+        status: false,
+        error: 'Nâo é possível deletar um MeetUp que já foi realizado.',
+      });
+    }
+
     meetup.destroy();
 
     return res.json({
