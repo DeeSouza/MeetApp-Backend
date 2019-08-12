@@ -1,9 +1,10 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO } from 'date-fns';
+import { parseISO, isBefore } from 'date-fns';
 import Meetup from '../models/Meetup';
 
 class MeetupController {
   async index(req, res) {
+    // Meetups from user logged
     const meetups = await Meetup.findAll({
       user_id: req.userId,
       attributes: ['title', 'description', 'date', 'banner', 'localization'],
@@ -26,7 +27,7 @@ class MeetupController {
       date: Yup.date().required(),
       user_id: Yup.number().required(),
       localization: Yup.string().required(),
-      banner: Yup.string().required(),
+      banner: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -36,12 +37,18 @@ class MeetupController {
       });
     }
 
-    // TODO: Check date meetup is passed
-    const formattedDate = startOfHour(parseISO(req.body.date));
-    const data = { ...req.body, date: formattedDate };
+    const dateForm = parseISO(req.body.date);
+
+    // Check date meetup is passed
+    if (isBefore(dateForm, new Date())) {
+      return res.status(400).json({
+        status: false,
+        error: 'Nâo é possível cadastrar um MeetUp pra uma data anterior.',
+      });
+    }
 
     const { id, title, description, date, localization } = await Meetup.create(
-      data
+      req.body
     );
 
     return res.json({
