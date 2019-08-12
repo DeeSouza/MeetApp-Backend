@@ -59,6 +59,63 @@ class MeetupController {
       localization,
     });
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      title: Yup.string().required(),
+      description: Yup.string().required(),
+      date: Yup.date().required(),
+      user_id: Yup.number().required(),
+      localization: Yup.string().required(),
+      banner: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({
+        status: false,
+        error: 'Valores de campos inválidos ou não preenchidos.',
+      });
+    }
+
+    const meetup = await Meetup.findByPk(req.params.id);
+
+    // Meetup doesn't exists
+    if (!meetup) {
+      return res.status(401).json({
+        status: false,
+        error: 'Esse MeetUp não existe.',
+      });
+    }
+
+    // User logged not is owner from meetup
+    if (meetup.user_id !== req.userId) {
+      return res.status(401).json({
+        status: false,
+        error:
+          'Nâo é possível editar um MeetUp no qual você não é um organizador.',
+      });
+    }
+
+    // Meetup is passed
+    if (isBefore(meetup.date, new Date())) {
+      return res.status(401).json({
+        status: false,
+        error: 'Nâo é possível editar um MeetUp que já foi realizado.',
+      });
+    }
+
+    const { id, title, description, date, localization } = await meetup.update(
+      req.body
+    );
+
+    return res.json({
+      id,
+      title,
+      description,
+      date,
+      localization,
+    });
+  }
 }
 
 export default new MeetupController();
