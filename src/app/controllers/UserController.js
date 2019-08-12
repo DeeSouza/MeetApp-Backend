@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import Meetup from '../models/Meetup';
 
 class UserController {
   async store(req, res) {
@@ -82,6 +83,23 @@ class UserController {
       name,
       email,
     });
+  }
+
+  async meetups(req, res) {
+    // Meetups from user logged
+    const meetups = await Meetup.findAll({
+      user_id: req.userId,
+      attributes: ['title', 'description', 'date', 'banner', 'localization'],
+    });
+
+    if (!meetups.length) {
+      return res.json({
+        status: false,
+        message: 'Você ainda não cadastrou nenhum MeetUp!',
+      });
+    }
+
+    return res.json(meetups);
   }
 }
 

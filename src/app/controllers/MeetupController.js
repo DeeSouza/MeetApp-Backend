@@ -4,10 +4,14 @@ import Meetup from '../models/Meetup';
 
 class MeetupController {
   async index(req, res) {
+    const { page = 1 } = req.query;
+    const limitNumber = 10;
+
     // Meetups from user logged
     const meetups = await Meetup.findAll({
-      user_id: req.userId,
       attributes: ['title', 'description', 'date', 'banner', 'localization'],
+      limit: limitNumber,
+      offset: (page - 1) * 10,
     });
 
     if (!meetups.length) {

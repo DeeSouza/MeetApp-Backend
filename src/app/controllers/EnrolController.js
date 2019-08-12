@@ -75,6 +75,8 @@ class EnrolController {
       enrolled_at: new Date(),
     });
 
+    // TODO: Send mail to owner meetup with subscription
+
     return res.json({ id });
   }
 }

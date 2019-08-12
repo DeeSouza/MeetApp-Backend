@@ -24,6 +24,7 @@ routes.use(authMiddleware);
 
 // Update User
 routes.put('/users', UserController.update);
+routes.get('/users/meetups', UserController.meetups);
 
 // Meetups
 routes.get('/meetups', MeetupController.index);
