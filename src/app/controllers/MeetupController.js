@@ -116,6 +116,25 @@ class MeetupController {
       localization,
     });
   }
+
+  async destroy(req, res) {
+    const meetup = await Meetup.findByPk(req.params.id);
+
+    // Meetup doesn't exists
+    if (!meetup) {
+      return res.status(401).json({
+        status: false,
+        error: 'Esse MeetUp não existe.',
+      });
+    }
+
+    meetup.destroy();
+
+    return res.json({
+      status: true,
+      deleted: true,
+    });
+  }
 }
 
 export default new MeetupController();
