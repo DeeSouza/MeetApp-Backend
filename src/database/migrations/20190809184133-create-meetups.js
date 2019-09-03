@@ -16,6 +16,16 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      file_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'files',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       title: {
         type: Sequelize.STRING,
         allowNull: false,

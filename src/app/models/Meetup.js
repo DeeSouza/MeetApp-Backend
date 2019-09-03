@@ -11,7 +11,6 @@ class Meetup extends Model {
         longitud: Sequelize.NUMBER,
         date: Sequelize.DATE,
         banner: Sequelize.INTEGER,
-        user_id: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -23,6 +22,7 @@ class Meetup extends Model {
 
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
+    this.belongsTo(models.File, { foreignKey: 'file_id', as: 'files' });
     this.hasMany(models.EnrolMeetup, {
       foreignKey: 'meetup_id',
       as: 'enrol_meetups',
