@@ -1,7 +1,9 @@
 import 'dotenv/config';
-import fs from 'fs';
-import path from 'path';
+
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
 import routes from './routes';
 import './database';
 
@@ -14,6 +16,7 @@ class App {
   }
 
   middlewares() {
+    this.server.use(cors());
     this.server.use(express.json());
 
     // Check if exists path tmp/uploads - create if not exists
