@@ -3,6 +3,7 @@ import { parseISO, isBefore, startOfDay, endOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
+import File from '../models/File';
 
 class MeetupController {
   /**
@@ -45,6 +46,33 @@ class MeetupController {
     }
 
     return res.json(meetups);
+  }
+
+  /**
+   * @description Show meetup
+   * @author Diego Souza
+   * @param {req} req
+   * @param {res} res
+   */
+  async show(req, res) {
+    const { id } = req.params;
+
+    const meetup = await Meetup.findByPk(id, {
+      include: [
+        {
+          model: User,
+          as: 'users',
+          attributes: ['name', 'email'],
+        },
+        {
+          model: File,
+          as: 'files',
+          attributes: ['name', 'path'],
+        },
+      ],
+    });
+
+    return res.json(meetup);
   }
 
   /**
