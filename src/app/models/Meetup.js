@@ -7,8 +7,6 @@ class Meetup extends Model {
         title: Sequelize.STRING,
         description: Sequelize.TEXT,
         localization: Sequelize.STRING,
-        latitud: Sequelize.NUMBER,
-        longitud: Sequelize.NUMBER,
         date: Sequelize.DATE,
         file_id: Sequelize.INTEGER,
       },

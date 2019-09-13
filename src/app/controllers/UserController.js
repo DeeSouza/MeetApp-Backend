@@ -111,7 +111,6 @@ class UserController {
       where: {
         user_id: req.userId,
       },
-      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
     });
 
     if (!meetups.length) {
@@ -134,7 +133,6 @@ class UserController {
     // Meetups from user logged is owner than not passed
     const meetups = await Meetup.findAll({
       order: [['date', 'desc']],
-      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
       where: {
         date: {
           [Op.gte]: startOfDay(new Date()),
