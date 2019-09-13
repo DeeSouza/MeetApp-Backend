@@ -67,7 +67,7 @@ class MeetupController {
         {
           model: File,
           as: 'files',
-          attributes: ['name', 'path'],
+          attributes: ['name', 'path', 'url'],
         },
       ],
     });
