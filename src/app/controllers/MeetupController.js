@@ -18,7 +18,7 @@ class MeetupController {
 
     // Meetups from user logged
     const meetups = await Meetup.findAll({
-      attributes: ['title', 'description', 'date', 'banner', 'localization'],
+      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
       limit: limitNumber,
       offset: (page - 1) * 10,
       include: [
@@ -60,7 +60,7 @@ class MeetupController {
       date: Yup.date().required(),
       user_id: Yup.number().required(),
       localization: Yup.string().required(),
-      banner: Yup.number().required(),
+      file_id: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -106,7 +106,7 @@ class MeetupController {
       date: Yup.date().required(),
       user_id: Yup.number().required(),
       localization: Yup.string().required(),
-      banner: Yup.number().required(),
+      file_id: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {

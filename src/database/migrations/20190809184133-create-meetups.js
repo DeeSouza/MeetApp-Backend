@@ -34,27 +34,9 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      banner: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'files',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
       localization: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      latitud: {
-        type: Sequelize.DECIMAL,
-        allowNull: true,
-      },
-      longitud: {
-        type: Sequelize.DECIMAL,
-        allowNull: true,
       },
       date: {
         type: Sequelize.DATE,

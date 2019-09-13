@@ -10,7 +10,7 @@ class Meetup extends Model {
         latitud: Sequelize.NUMBER,
         longitud: Sequelize.NUMBER,
         date: Sequelize.DATE,
-        banner: Sequelize.INTEGER,
+        file_id: Sequelize.INTEGER,
       },
       {
         sequelize,
