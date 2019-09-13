@@ -108,8 +108,10 @@ class UserController {
   async meetups_owner(req, res) {
     // Meetups from user logged is owner
     const meetups = await Meetup.findAll({
-      user_id: req.userId,
-      attributes: ['title', 'description', 'date', 'banner', 'localization'],
+      where: {
+        user_id: req.userId,
+      },
+      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
     });
 
     if (!meetups.length) {
@@ -132,7 +134,7 @@ class UserController {
     // Meetups from user logged is owner than not passed
     const meetups = await Meetup.findAll({
       order: [['date', 'desc']],
-      attributes: ['title', 'description', 'date', 'banner', 'localization'],
+      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
       where: {
         date: {
           [Op.gte]: startOfDay(new Date()),
