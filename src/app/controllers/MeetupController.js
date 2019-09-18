@@ -41,7 +41,7 @@ class MeetupController {
     if (!meetups.length) {
       return res.json({
         status: false,
-        message: 'Nenhum Meetup encontrado!',
+        message: 'Nenhum meetup encontrado!',
       });
     }
 
@@ -150,7 +150,7 @@ class MeetupController {
     if (!meetup) {
       return res.status(401).json({
         status: false,
-        error: 'Esse MeetUp não existe.',
+        error: 'Esse meetup não existe.',
       });
     }
 
@@ -159,7 +159,7 @@ class MeetupController {
       return res.status(401).json({
         status: false,
         error:
-          'Nâo é possível editar um MeetUp no qual você não é um organizador.',
+          'Nâo é possível editar um meetup no qual você não é um organizador.',
       });
     }
 
@@ -167,7 +167,7 @@ class MeetupController {
     if (isBefore(meetup.date, new Date())) {
       return res.status(401).json({
         status: false,
-        error: 'Nâo é possível editar um MeetUp que já foi realizado.',
+        error: 'Nâo é possível editar um meetup que já foi realizado.',
       });
     }
 
@@ -197,7 +197,7 @@ class MeetupController {
     if (!meetup) {
       return res.status(401).json({
         status: false,
-        error: 'Esse MeetUp não existe.',
+        error: 'Esse meetup não existe.',
       });
     }
 
@@ -206,7 +206,7 @@ class MeetupController {
       return res.status(401).json({
         status: false,
         error:
-          'Nâo é possível editar um MeetUp no qual você não é um organizador.',
+          'Nâo é possível editar um meetup no qual você não é um organizador.',
       });
     }
 
@@ -214,7 +214,7 @@ class MeetupController {
     if (isBefore(meetup.date, new Date())) {
       return res.status(401).json({
         status: false,
-        error: 'Nâo é possível deletar um MeetUp que já foi realizado.',
+        error: 'Nâo é possível deletar um meetup que já foi realizado.',
       });
     }
 
