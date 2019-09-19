@@ -108,6 +108,7 @@ class UserController {
   async meetups_owner(req, res) {
     // Meetups from user logged is owner
     const meetups = await Meetup.findAll({
+      order: [['date', 'desc']],
       where: {
         user_id: req.userId,
       },
