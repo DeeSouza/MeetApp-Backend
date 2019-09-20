@@ -14,7 +14,7 @@ Desafio final do bootcamp da RocketSeat. Uma API para gerenciamento de meetups. 
 
 	yarn dev
 
-# What I Used
+## What I Used
 
 1. NodeJS (Express)
 2. Sequelize (Driver MySQL)
@@ -24,7 +24,7 @@ Desafio final do bootcamp da RocketSeat. Uma API para gerenciamento de meetups. 
 6. Json Web Tokens (Autenticação)
 7. Yup (Validação de Campos)
 
-# My Setup DEV
+## My Setup DEV
 
 1. Editor Config
 2. ESLint
