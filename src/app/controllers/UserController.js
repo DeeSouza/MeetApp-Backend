@@ -117,7 +117,7 @@ class UserController {
     if (!meetups.length) {
       return res.json({
         status: false,
-        message: 'Você ainda não cadastrou nenhum MeetUp!',
+        message: 'Você ainda não cadastrou um MeetUp!',
       });
     }
 
@@ -152,7 +152,7 @@ class UserController {
     if (!meetups.length) {
       return res.json({
         status: false,
-        message: 'Você ainda não se inscreveu nenhum MeetUp!',
+        message: 'Você ainda não se inscreveu em um MeetUp!',
       });
     }
 
