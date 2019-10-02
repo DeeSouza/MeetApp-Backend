@@ -1,7 +1,7 @@
 # MEETAPP - BACKEND
 
-![1](https://img.shields.io/badge/16.9.0-NodeJS-green?style=flat-square&logo=node.js)
-![2](https://img.shields.io/badge/1.38.0-version-orange?style=flat-square&logo=visual-studio-code)
+![1](https://img.shields.io/badge/11.14.0-NodeJS-green?style=flat-square&logo=node.js)
+![2](https://img.shields.io/badge/1.38.0-Visual%20Studio%20Code-orange?style=flat-square&logo=visual-studio-code)
 ![3](https://img.shields.io/badge/1.17.3-version-red?style=flat-square&logo=yarn)
 
 Desafio final do bootcamp da RocketSeat. Uma API para gerenciamento de meetups. Esse aplicação consiste em criar meetups.
@@ -29,3 +29,5 @@ Desafio final do bootcamp da RocketSeat. Uma API para gerenciamento de meetups. 
 1. Editor Config
 2. ESLint
 3. Prettier
+
+docker run --name meetapp -e MYSQL_ROOT_PASSWORD=docker -d mysql:tag
