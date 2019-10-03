@@ -70,32 +70,32 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
 ### `/sessions`
 
-| Verb | URL          | Action | Route Name     |
-| ---- | ------------ | ------ | -------------- |
-| POST | `/sessions/` | store  | sessions.store |
+| ****Verb**** | **URL**      | **Action** | **Route Name** |
+| ------------ | ------------ | ---------- | -------------- |
+| POST         | `/sessions/` | store      | sessions.store |
 
 
 ### `/meetups`
 
-| Verb   | URL                 | Action | Route Name     |
-| ------ | ------------------- | ------ | -------------- |
-| GET    | `/meetups`          | index  | meetups.index  |
-| GET    | `/meetups/{meetup}` | show   | meetups.show   |
-| POST   | `/meetups/`         | store  | meetups.store  |
-| PUT    | `/meetups/{meetup}` | update | meetups.update |
-| DELETE | `/meetups/{meetup}` | update | meetups.delete |
+| **Verb** | **URL**             | **Action** | **Route Name** |
+| -------- | ------------------- | ---------- | -------------- |
+| GET      | `/meetups`          | index      | meetups.index  |
+| GET      | `/meetups/{meetup}` | show       | meetups.show   |
+| POST     | `/meetups/`         | store      | meetups.store  |
+| PUT      | `/meetups/{meetup}` | update     | meetups.update |
+| DELETE   | `/meetups/{meetup}` | update     | meetups.delete |
 
 ### `/users`
 
-| Verb | URL                       | Action           | Route Name             |
-| ---- | ------------------------- | ---------------- | ---------------------- |
-| POST | `/users/`                 | store            | users.store            |
-| PUT  | `/users/`                 | update           | users.update           |
-| GET  | `/users/meetups_owner`    | meetups_owner    | users.meetups_owner    |
-| GET  | `/users/meetups_enrolled` | meetups_enrolled | users.meetups_enrolled |
+| **Verb** | **URL**                   | **Action**       | **Route Name**         |
+| -------- | ------------------------- | ---------------- | ---------------------- |
+| POST     | `/users/`                 | store            | users.store            |
+| PUT      | `/users/`                 | update           | users.update           |
+| GET      | `/users/meetups_owner`    | meetups_owner    | users.meetups_owner    |
+| GET      | `/users/meetups_enrolled` | meetups_enrolled | users.meetups_enrolled |
 
 ### `/enrol`
 
-| Verb | URL       | Action | Route Name  |
-| ---- | --------- | ------ | ----------- |
-| POST | `/enrol/` | store  | enrol.store |
+| **Verb** | **URL**   | **Action** | **Route Name** |
+| -------- | --------- | ---------- | -------------- |
+| POST     | `/enrol/` | store      | enrol.store    |
