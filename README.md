@@ -48,7 +48,7 @@ A versão WEB será utilizada para gerenciar meetups e a versão MOBILE será ut
 
 O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
-- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas:
+- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas no **envio de e-mail**, credenciais para acesso ao **banco de dados** e **Redis**.
 
       # DATABASE
 
@@ -63,5 +63,5 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
       MAIL_HOST=smtp.mailtrap.io
       MAIL_PORT=2525
-      MAIL_USER=d4c7991ae22312
-      MAIL_PASS=49ba24e62e8dee
+      MAIL_USER=
+      MAIL_PASS=
