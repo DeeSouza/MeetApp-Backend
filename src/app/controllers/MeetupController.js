@@ -7,7 +7,7 @@ import File from '../models/File';
 
 class MeetupController {
   /**
-   * @description List all meetups
+   * @description List all meetups to user logged in app that not he created
    * @author Diego Souza
    * @param {*} req
    * @param {*} res
