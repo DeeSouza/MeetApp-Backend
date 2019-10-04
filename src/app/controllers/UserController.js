@@ -3,6 +3,7 @@ import { startOfDay } from 'date-fns';
 import { Op } from 'sequelize';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
+import File from '../models/File';
 import EnrolMeetup from '../models/EnrolMeetup';
 
 class UserController {
@@ -108,7 +109,7 @@ class UserController {
   async meetups_owner(req, res) {
     // Meetups from user logged is owner
     const meetups = await Meetup.findAll({
-      order: [['date', 'desc']],
+      order: [['date', 'asc']],
       where: {
         user_id: req.userId,
       },
@@ -133,7 +134,7 @@ class UserController {
   async meetups_enrolled(req, res) {
     // Meetups from user logged is owner than not passed
     const meetups = await Meetup.findAll({
-      order: [['date', 'desc']],
+      order: [['date', 'asc']],
       where: {
         date: {
           [Op.gte]: startOfDay(new Date()),
@@ -145,6 +146,11 @@ class UserController {
           as: 'enrol_meetups',
           where: { user_id: req.userId },
           attributes: ['id', 'enrolled_at'],
+        },
+        {
+          model: File,
+          as: 'files',
+          attributes: ['name', 'path', 'url'],
         },
       ],
     });

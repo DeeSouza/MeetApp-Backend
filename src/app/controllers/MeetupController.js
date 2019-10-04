@@ -14,28 +14,33 @@ class MeetupController {
    */
   async index(req, res) {
     const { page = 1, date } = req.query;
-    const dateFormat = date ? parseISO(date) : null;
+    const dateFormat = parseISO(date);
     const limitNumber = 10;
 
-    // Meetups from user logged
     const meetups = await Meetup.findAll({
-      attributes: ['title', 'description', 'date', 'file_id', 'localization'],
       limit: limitNumber,
       offset: (page - 1) * 10,
+      order: [['date', 'asc']],
       include: [
         {
           model: User,
           as: 'users',
           attributes: ['name', 'email'],
         },
+        {
+          model: File,
+          as: 'files',
+          attributes: ['name', 'path', 'url'],
+        },
       ],
-      where: dateFormat
-        ? {
-            date: {
-              [Op.between]: [startOfDay(dateFormat), endOfDay(dateFormat)],
-            },
-          }
-        : {},
+      where: {
+        date: {
+          [Op.between]: [startOfDay(dateFormat), endOfDay(dateFormat)],
+        },
+        user_id: {
+          [Op.not]: req.userId,
+        },
+      },
     });
 
     if (!meetups.length) {
