@@ -35,6 +35,11 @@ class SubscriptionController {
           as: 'files',
           attributes: ['name', 'path', 'url'],
         },
+        {
+          model: User,
+          as: 'users',
+          attributes: ['name', 'email'],
+        },
       ],
     });
 
