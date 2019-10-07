@@ -164,6 +164,16 @@ class SubscriptionController {
 
     return res.json({ id });
   }
+
+  /**
+   * Unsubscriber user from meetups
+   */
+  async destroy(req, res) {
+    const { id } = req.params;
+    const meetup = Meetup.findByPk(id);
+
+    return res.json(meetup);
+  }
 }
 
 export default new SubscriptionController();
