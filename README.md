@@ -87,15 +87,14 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
 ### `/users`
 
-| **Verb** | **URL**                   | **Action**       | **Route Name**         |
-| -------- | ------------------------- | ---------------- | ---------------------- |
-| POST     | `/users/`                 | store            | users.store            |
-| PUT      | `/users/`                 | update           | users.update           |
-| GET      | `/users/meetups_owner`    | meetups_owner    | users.meetups_owner    |
-| GET      | `/users/meetups_enrolled` | meetups_enrolled | users.meetups_enrolled |
-
-### `/enrol`
-
 | **Verb** | **URL**   | **Action** | **Route Name** |
 | -------- | --------- | ---------- | -------------- |
-| POST     | `/enrol/` | store      | enrol.store    |
+| POST     | `/users/` | store      | users.store    |
+| PUT      | `/users/` | update     | users.update   |
+
+### `/subscriptions`
+
+| **Verb** | **URL**                | **Action** | **Route Name**      | **Params**           |
+| -------- | ---------------------- | ---------- | ------------------- | -------------------- |
+| GET      | `/subscriptions/:type` | index      | subscriptions.index | (subscribers, owner) |
+| POST     | `/subscriptions/`      | store      | subscriptions.store | ---                  |
