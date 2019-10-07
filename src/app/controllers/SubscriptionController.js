@@ -1,11 +1,75 @@
-import { isBefore, format, isEqual } from 'date-fns';
+import { isBefore, format, isEqual, startOfDay } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import { Op } from 'sequelize';
+import File from '../models/File';
+import SubscriptionMeetup from '../models/SubscriptionMeetup';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
-import SubscriptionMeetup from '../models/SubscriptionMeetup';
 import Mail from '../../libs/Mail';
 
 class SubscriptionController {
+  /**
+   * @description List meetups than user logges is enrolled
+   * @author Diego Souza
+   * @param {*} req
+   * @param {*} res
+   */
+  async index(req, res) {
+    const { type } = req.params;
+    const meetups = {
+      data: {},
+    };
+
+    // Meetups from user logged is owner than not passed
+    if (type === 'subscribers') {
+      meetups.data = await Meetup.findAll({
+        order: [['date', 'asc']],
+        where: {
+          date: {
+            [Op.gte]: startOfDay(new Date()),
+          },
+        },
+        include: [
+          {
+            model: SubscriptionMeetup,
+            as: 'enrol_meetups',
+            where: { user_id: req.userId },
+            attributes: ['id', 'enrolled_at'],
+          },
+          {
+            model: File,
+            as: 'files',
+            attributes: ['name', 'path', 'url'],
+          },
+        ],
+      });
+
+      if (!meetups.data.length) {
+        return res.json({
+          status: false,
+          message: 'Você ainda não se inscreveu em um meetup!',
+        });
+      }
+    } else if (type === 'owner') {
+      // Meetups from user logged is owner
+      meetups.data = await Meetup.findAll({
+        order: [['date', 'asc']],
+        where: {
+          user_id: req.userId,
+        },
+      });
+
+      if (!meetups.data.length) {
+        return res.json({
+          status: false,
+          message: 'Você ainda não criou um meetup!',
+        });
+      }
+    }
+
+    return res.json(meetups.data);
+  }
+
   /**
    * @description Enrol user than is logged in meetup
    * @author Diego Souza

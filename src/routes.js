@@ -24,8 +24,6 @@ routes.use(authMiddleware);
 
 // Update User
 routes.put('/users', UserController.update);
-routes.get('/users/meetups_owner', UserController.meetups_owner);
-routes.get('/users/meetups_enrolled', UserController.meetups_enrolled);
 
 // Meetups
 routes.get('/meetups', MeetupController.index);
@@ -35,6 +33,7 @@ routes.put('/meetups/:id', MeetupController.update);
 routes.delete('/meetups/:id', MeetupController.destroy);
 
 // Subscription Meetup
+routes.get('/subscriptions/:type', SubscriptionController.index);
 routes.post('/subscriptions', SubscriptionController.store);
 
 // Upload Files

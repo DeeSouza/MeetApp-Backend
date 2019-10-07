@@ -1,10 +1,6 @@
 import * as Yup from 'yup';
-import { startOfDay } from 'date-fns';
-import { Op } from 'sequelize';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
-import File from '../models/File';
-import SubscriptionMeetup from '../models/SubscriptionMeetup';
 
 class UserController {
   /**
@@ -118,47 +114,7 @@ class UserController {
     if (!meetups.length) {
       return res.json({
         status: false,
-        message: 'Você ainda não cadastrou um MeetUp!',
-      });
-    }
-
-    return res.json(meetups);
-  }
-
-  /**
-   * @description List meetups than user logges is enrolled
-   * @author Diego Souza
-   * @param {*} req
-   * @param {*} res
-   */
-  async meetups_enrolled(req, res) {
-    // Meetups from user logged is owner than not passed
-    const meetups = await Meetup.findAll({
-      order: [['date', 'asc']],
-      where: {
-        date: {
-          [Op.gte]: startOfDay(new Date()),
-        },
-      },
-      include: [
-        {
-          model: SubscriptionMeetup,
-          as: 'enrol_meetups',
-          where: { user_id: req.userId },
-          attributes: ['id', 'enrolled_at'],
-        },
-        {
-          model: File,
-          as: 'files',
-          attributes: ['name', 'path', 'url'],
-        },
-      ],
-    });
-
-    if (!meetups.length) {
-      return res.json({
-        status: false,
-        message: 'Você ainda não se inscreveu em um MeetUp!',
+        message: 'Você ainda não criou um meetup!',
       });
     }
 
