@@ -4,7 +4,7 @@ import { Op } from 'sequelize';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
 import File from '../models/File';
-import EnrolMeetup from '../models/EnrolMeetup';
+import SubscriptionMeetup from '../models/SubscriptionMeetup';
 
 class UserController {
   /**
@@ -142,7 +142,7 @@ class UserController {
       },
       include: [
         {
-          model: EnrolMeetup,
+          model: SubscriptionMeetup,
           as: 'enrol_meetups',
           where: { user_id: req.userId },
           attributes: ['id', 'enrolled_at'],

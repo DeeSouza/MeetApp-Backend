@@ -1,11 +1,11 @@
-import { isBefore, parseISO, format, isEqual } from 'date-fns';
+import { isBefore, format, isEqual } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Meetup from '../models/Meetup';
 import User from '../models/User';
-import EnrolMeetup from '../models/EnrolMeetup';
+import SubscriptionMeetup from '../models/SubscriptionMeetup';
 import Mail from '../../libs/Mail';
 
-class EnrolController {
+class SubscriptionController {
   /**
    * @description Enrol user than is logged in meetup
    * @author Diego Souza
@@ -51,7 +51,7 @@ class EnrolController {
     }
 
     // Meetups from user logged
-    const meetups_enrol = await EnrolMeetup.findAll({
+    const meetups_enrol = await SubscriptionMeetup.findAll({
       where: { user_id: req.userId },
       include: [
         {
@@ -87,7 +87,7 @@ class EnrolController {
     }
 
     const enrolled_at = new Date();
-    const { id } = await EnrolMeetup.create({
+    const { id } = await SubscriptionMeetup.create({
       meetup_id,
       enrolled_at,
       user_id: req.userId,
@@ -119,4 +119,4 @@ class EnrolController {
   }
 }
 
-export default new EnrolController();
+export default new SubscriptionController();
