@@ -84,6 +84,7 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 | POST     | `/meetups/`         | store      | meetups.store  |
 | PUT      | `/meetups/{meetup}` | update     | meetups.update |
 | DELETE   | `/meetups/{meetup}` | update     | meetups.delete |
+| GET      | `/meetups/owner`    | owner      | meetups.owner  |
 
 ### `/users`
 
@@ -94,7 +95,7 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
 ### `/subscriptions`
 
-| **Verb** | **URL**                | **Action** | **Route Name**      | **Params**           |
-| -------- | ---------------------- | ---------- | ------------------- | -------------------- |
-| GET      | `/subscriptions/:type` | index      | subscriptions.index | (subscribers, owner) |
-| POST     | `/subscriptions/`      | store      | subscriptions.store | ---                  |
+| **Verb** | **URL**           | **Action** | **Route Name**      |
+| -------- | ----------------- | ---------- | ------------------- |
+| GET      | `/subscriptions/` | index      | subscriptions.index |
+| POST     | `/subscriptions/` | store      | subscriptions.store |

@@ -15,59 +15,37 @@ class SubscriptionController {
    * @param {*} res
    */
   async index(req, res) {
-    const { type } = req.params;
-    const meetups = {
-      data: {},
-    };
-
     // Meetups from user logged is owner than not passed
-    if (type === 'subscribers') {
-      meetups.data = await Meetup.findAll({
-        order: [['date', 'asc']],
-        where: {
-          date: {
-            [Op.gte]: startOfDay(new Date()),
-          },
+    const meetups = await Meetup.findAll({
+      order: [['date', 'asc']],
+      where: {
+        date: {
+          [Op.gte]: startOfDay(new Date()),
         },
-        include: [
-          {
-            model: SubscriptionMeetup,
-            as: 'enrol_meetups',
-            where: { user_id: req.userId },
-            attributes: ['id', 'enrolled_at'],
-          },
-          {
-            model: File,
-            as: 'files',
-            attributes: ['name', 'path', 'url'],
-          },
-        ],
-      });
-
-      if (!meetups.data.length) {
-        return res.json({
-          status: false,
-          message: 'Você ainda não se inscreveu em um meetup!',
-        });
-      }
-    } else if (type === 'owner') {
-      // Meetups from user logged is owner
-      meetups.data = await Meetup.findAll({
-        order: [['date', 'asc']],
-        where: {
-          user_id: req.userId,
+      },
+      include: [
+        {
+          model: SubscriptionMeetup,
+          as: 'enrol_meetups',
+          where: { user_id: req.userId },
+          attributes: ['id', 'enrolled_at'],
         },
-      });
+        {
+          model: File,
+          as: 'files',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
 
-      if (!meetups.data.length) {
-        return res.json({
-          status: false,
-          message: 'Você ainda não criou um meetup!',
-        });
-      }
+    if (!meetups.length) {
+      return res.json({
+        status: false,
+        message: 'Você ainda não se inscreveu em um meetup!',
+      });
     }
 
-    return res.json(meetups.data);
+    return res.json(meetups);
   }
 
   /**

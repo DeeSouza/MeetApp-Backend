@@ -230,6 +230,28 @@ class MeetupController {
       deleted: true,
     });
   }
+
+  /**
+   * Meetup than user create
+   */
+  async owner(req, res) {
+    // Meetups from user logged is owner
+    const meetups = await Meetup.findAll({
+      order: [['date', 'asc']],
+      where: {
+        user_id: req.userId,
+      },
+    });
+
+    if (!meetups.length) {
+      return res.json({
+        status: false,
+        message: 'Você ainda não criou um meetup!',
+      });
+    }
+
+    return res.json(meetups);
+  }
 }
 
 export default new MeetupController();
