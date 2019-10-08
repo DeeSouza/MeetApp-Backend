@@ -1,6 +1,5 @@
-import { isBefore, format, isEqual, startOfDay } from 'date-fns';
+import { isBefore, format, isEqual } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import { Op } from 'sequelize';
 import File from '../models/File';
 import SubscriptionMeetup from '../models/SubscriptionMeetup';
 import Meetup from '../models/Meetup';
@@ -18,11 +17,6 @@ class SubscriptionController {
     // Meetups from user logged is owner than not passed
     const meetups = await Meetup.findAll({
       order: [['date', 'asc']],
-      where: {
-        date: {
-          [Op.gte]: startOfDay(new Date()),
-        },
-      },
       include: [
         {
           model: SubscriptionMeetup,
@@ -170,9 +164,18 @@ class SubscriptionController {
    */
   async destroy(req, res) {
     const { id } = req.params;
-    const meetup = Meetup.findByPk(id);
+    const subscribe = await SubscriptionMeetup.findOne({
+      where: {
+        meetup_id: id,
+        user_id: req.userId,
+      },
+    });
 
-    return res.json(meetup);
+    subscribe.destroy();
+
+    return res.json({
+      status: true,
+    });
   }
 }
 

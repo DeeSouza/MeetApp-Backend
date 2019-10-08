@@ -13,7 +13,7 @@ class MeetupController {
    * @param {*} res
    */
   async index(req, res) {
-    const { page = 1, date } = req.query;
+    const { page, date } = req.query;
     const dateFormat = parseISO(date);
     const limitNumber = 10;
 
