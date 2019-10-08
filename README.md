@@ -46,27 +46,33 @@ A versão WEB será utilizada para gerenciar meetups e a versão MOBILE será ut
 
 ## Enviroment Variables
 
-O arquivo de configuração se encontra na raiz do projeto com o nome de `.env.example`. Faça uma cópia do arquivo antes de executar o servidor e o renomeie para `.env` e faça as seguintes alterações descritas abaixo:
+O arquivo de configuração das variáveis se encontra em um arquivo na raiz do projeto com o nome de `.env.example`.
+Faça uma cópia do arquivo antes de executar o servidor e o renomeie para `.env` e faça as seguintes alterações descritas abaixo:
 
-- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas no **envio de e-mail**, credenciais para acesso ao **banco de dados**, **Redis** e também URL da aplicação.
+- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas no **envio de e-mail**, credenciais para acesso ao **banco de dados**, **redis** e também a **URL** da aplicação.
 
-      APP_URL=http://192.168.0.115:3001
+        APP_URL=http://localhost:3001
 
-      # DATABASE
+        # DATABASE
 
-      DB_DRIVER=postgres
-      DB_HOST=localhost
-      DB_PORT=3306
-      DB_USER=postgres
-      DB_PASS=docker
-      DB_NAME=meetapp
+        DB_DRIVER=postgres
+        DB_HOST=localhost
+        DB_PORT=3306
+        DB_USER=postgres
+        DB_PASS=docker
+        DB_NAME=meetapp
 
-      # MAIL
+        # MAIL
 
-      MAIL_HOST=smtp.mailtrap.io
-      MAIL_PORT=2525
-      MAIL_USER=
-      MAIL_PASS=
+        MAIL_HOST=smtp.mailtrap.io
+        MAIL_PORT=2525
+        MAIL_USER=
+        MAIL_PASS=
+
+        # REDIS
+
+        REDIS_HOST=localhost
+        REDIS_PORT=6379
 
 ## Routes
 
@@ -85,7 +91,7 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env.e
 | GET      | `/meetups/{meetup}` | show       | meetups.show   |
 | POST     | `/meetups/`         | store      | meetups.store  |
 | PUT      | `/meetups/{meetup}` | update     | meetups.update |
-| DELETE   | `/meetups/{meetup}` | delete     | meetups.delete |
+| DELETE   | `/meetups/{meetup}` | delete     | meetups.destroy |
 | GET      | `/meetups/owner`    | owner      | meetups.owner  |
 
 ### `/users`
