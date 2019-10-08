@@ -24,7 +24,7 @@ A versão WEB será utilizada para gerenciar meetups e a versão MOBILE será ut
 - Nodemailer (Handlerbars)
 - Redis
 - Multer (Upload de Arquivos)
-- Json Web Tokens (Autenticação)
+- Json Web Tokens (Autenticação JWT)
 - Yup (Validação de Campos)
 
 ## My Setup DEV
@@ -35,7 +35,14 @@ A versão WEB será utilizada para gerenciar meetups e a versão MOBILE será ut
 
 ## Docker
 
-    docker run --name meetapp -e MYSQL_ROOT_PASSWORD=docker -d mysql:tag
+    docker run --name meetapp -e MYSQL_ROOT_PASSWORD=docker -d mysql:tag // Postgres
+    docker run --name meetappredis -p 6379:6379 -d -t redis:alpine // Redis
+
+## Redis
+
+Para executar o Redis é necessário abrir um outro terminal e executar o comando abaixo:
+
+    yarn queue
 
 ## Database
 
