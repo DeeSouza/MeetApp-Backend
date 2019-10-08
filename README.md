@@ -46,9 +46,11 @@ A versão WEB será utilizada para gerenciar meetups e a versão MOBILE será ut
 
 ## Enviroment Variables
 
-O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
+O arquivo de configuração se encontra na raiz do projeto com o nome de `.env.example`. Faça uma cópia do arquivo antes de executar o servidor e o renomeie para `.env` e faça as seguintes alterações descritas abaixo:
 
-- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas no **envio de e-mail**, credenciais para acesso ao **banco de dados** e **Redis**.
+- Para executar o servidor da aplicação certifique-se de configurar as variáveis de ambiente que são usadas no **envio de e-mail**, credenciais para acesso ao **banco de dados**, **Redis** e também URL da aplicação.
+
+      APP_URL=http://192.168.0.115:3001
 
       # DATABASE
 
@@ -70,9 +72,9 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
 ### `/sessions`
 
-| ****Verb**** | **URL**      | **Action** | **Route Name** |
-| ------------ | ------------ | ---------- | -------------- |
-| POST         | `/sessions/` | store      | sessions.store |
+| **Verb** | **URL**      | **Action** | **Route Name** |
+| -------- | ------------ | ---------- | -------------- |
+| POST     | `/sessions/` | store      | sessions.store |
 
 
 ### `/meetups`
@@ -83,7 +85,7 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 | GET      | `/meetups/{meetup}` | show       | meetups.show   |
 | POST     | `/meetups/`         | store      | meetups.store  |
 | PUT      | `/meetups/{meetup}` | update     | meetups.update |
-| DELETE   | `/meetups/{meetup}` | update     | meetups.delete |
+| DELETE   | `/meetups/{meetup}` | delete     | meetups.delete |
 | GET      | `/meetups/owner`    | owner      | meetups.owner  |
 
 ### `/users`
@@ -95,7 +97,8 @@ O arquivo de configuração se encontra na raiz do projeto com o nome de `.env`.
 
 ### `/subscriptions`
 
-| **Verb** | **URL**           | **Action** | **Route Name**      |
-| -------- | ----------------- | ---------- | ------------------- |
-| GET      | `/subscriptions/` | index      | subscriptions.index |
-| POST     | `/subscriptions/` | store      | subscriptions.store |
+| **Verb** | **URL**                   | **Action** | **Route Name**        |
+| -------- | ------------------------- | ---------- | --------------------- |
+| GET      | `/subscriptions/`         | index      | subscriptions.index   |
+| POST     | `/subscriptions/`         | store      | subscriptions.store   |
+| DELETE   | `/subscriptions/{meetup}` | delete     | subscriptions.destroy |
